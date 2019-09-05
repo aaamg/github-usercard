@@ -1,13 +1,24 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
+           (replacing the palceholder with your Github name): x
            https://api.github.com/users/<your name>
 */
+// axios.get('https://api.github.com/users/aaamg')
+//   .then(res => {
+//     console.log('API data ->', res.data);
+//     res.data.avatar_url.forEach(item => {
+//       const newCard = GitCard(item);
+//       entryPoint.appendChild(newCard);
+//     });
+//   })
+//   .catch(error => {
+//     console.log("The data was not returned", error);
+//   });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+   data in order to use it to build your component function  x
 
-   Skip to Step 3.
+   Skip to Step 3. x
 */
 
 /* Step 4: Pass the data received from Github into your function, 
@@ -27,7 +38,7 @@
 const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
+          Using DOM methods and properties, create a component that will return the following DOM element: x
 
 <div class="card">
   <img src={image url of user} />
@@ -44,7 +55,62 @@ const followersArray = [];
   </div>
 </div>
 
+
 */
+
+axios.get('https://api.github.com/users/aaamg')
+  .then(res => {
+    console.log('API data ->', res.data);
+    res.data.avatar_url.forEach(item => {
+      const newCard = GitCard(item);
+      entryPoint.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.log("The data was not returned", error);
+  });
+
+const entryPoint = document.querySelector('.cards');
+
+function GitCard(para1){
+  const card = document.createElement('div'),
+        img = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        address = document.createElement('a'),
+        followers = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p');
+
+  //structure appends
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  //classList
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  //text content
+  img.src = para1;
+
+  return card
+  
+}
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
