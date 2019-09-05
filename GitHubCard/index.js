@@ -22,7 +22,7 @@
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+           create a new component and add it to the DOM as a child of .cards x
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
@@ -61,10 +61,11 @@ const followersArray = [];
 axios.get('https://api.github.com/users/aaamg')
   .then(res => {
     console.log('API data ->', res.data);
-    res.data.avatar_url.forEach(item => {
-      const newCard = GitCard(item);
-      entryPoint.appendChild(card);
-    });
+    const info = res.data;
+    const newCard = GitCard(info.avatar_url, info.name, info.login, info.location, info.html_url, info.followers, info.following);
+    const entryPoint = document.querySelector('.cards');
+    entryPoint.appendChild(newCard);
+
   })
   .catch(error => {
     console.log("The data was not returned", error);
@@ -72,7 +73,7 @@ axios.get('https://api.github.com/users/aaamg')
 
 const entryPoint = document.querySelector('.cards');
 
-function GitCard(para1){
+function GitCard(para1, para2, para3, para4, para5, para6, para7){
   const card = document.createElement('div'),
         img = document.createElement('img'),
         cardInfo = document.createElement('div'),
@@ -105,6 +106,12 @@ function GitCard(para1){
 
   //text content
   img.src = para1;
+  name.textContent = para2;
+  username.textContent = para3;
+  location.textContent = para4;
+  address.textContent = para5;
+  followers.textContent = `Followers: ${para6}`;
+  following.textContent = `Following: ${para7}`;
 
   return card
   
